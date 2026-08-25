@@ -3,7 +3,6 @@ package com.socops.service;
 import com.socops.data.IcebreakerPrompts;
 import com.socops.model.BingoCell;
 import com.socops.model.WinningStreak;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,6 +18,7 @@ import java.util.stream.IntStream;
 public final class BoardAssembler {
 
     private static final int GRID_SIDE = 5;
+
     private static final int CENTER_SLOT = 12;
 
     private BoardAssembler() {
