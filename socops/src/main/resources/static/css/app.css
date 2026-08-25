@@ -257,8 +257,8 @@ button:disabled { cursor: default; }
     background: var(--lobby-surface);
     border: 1px solid var(--lobby-border);
     border-radius: 1.25rem;
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     box-shadow: 0 0 0 1px rgba(255,255,255,0.03),
                 0 32px 64px rgba(0,0,0,0.55);
 }
