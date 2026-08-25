@@ -178,3 +178,216 @@ button:disabled { cursor: default; }
 .animate-\[bounce_0\.5s_ease-out\] {
     animation: bounce 0.5s ease-out;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOBBY LANDING PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+    --lobby-bg:       #0d0f14;
+    --lobby-surface:  rgba(255, 255, 255, 0.04);
+    --lobby-border:   rgba(255, 255, 255, 0.10);
+    --lobby-ink:      #f0f4ff;
+    --lobby-muted:    rgba(240, 244, 255, 0.55);
+    --lobby-accent:   #5b8dee;
+    --lobby-accent2:  #a78bfa;
+    --lobby-glow:     rgba(91, 141, 238, 0.35);
+}
+
+.lobby-root {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    overflow: hidden;
+    background-color: var(--lobby-bg);
+}
+
+/* ── geometric grid backdrop ─────────────────────────────────── */
+.lobby-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.lobby-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.lobby-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.45;
+    animation: orb-drift 8s ease-in-out infinite alternate;
+}
+.lobby-orb-1 {
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, #3b5fc0, transparent 70%);
+    top: -120px; left: -100px;
+    animation-delay: 0s;
+}
+.lobby-orb-2 {
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, #7c3aed, transparent 70%);
+    bottom: -80px; right: -80px;
+    animation-delay: -4s;
+}
+
+@keyframes orb-drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* ── card ─────────────────────────────────────────────────────── */
+.lobby-card {
+    position: relative;
+    z-index: 1;
+    width: min(400px, 90vw);
+    text-align: center;
+    padding: 2.5rem 2rem 2.5rem;
+    background: var(--lobby-surface);
+    border: 1px solid var(--lobby-border);
+    border-radius: 1.25rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.03),
+                0 32px 64px rgba(0,0,0,0.55);
+}
+
+/* ── badge ────────────────────────────────────────────────────── */
+.lobby-badge {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lobby-accent);
+    background: rgba(91, 141, 238, 0.12);
+    border: 1px solid rgba(91, 141, 238, 0.3);
+    border-radius: 99px;
+    padding: 0.3rem 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+/* ── title ────────────────────────────────────────────────────── */
+.lobby-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 14vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--lobby-ink);
+    line-height: 1;
+    margin: 0 0 0.5rem;
+}
+.lobby-title-accent {
+    color: var(--lobby-accent);
+    text-shadow: 0 0 32px var(--lobby-glow);
+}
+
+/* ── subtitle ─────────────────────────────────────────────────── */
+.lobby-subtitle {
+    font-size: 1rem;
+    color: var(--lobby-muted);
+    margin: 0 0 2rem;
+    line-height: 1.5;
+}
+
+/* ── rules list ───────────────────────────────────────────────── */
+.lobby-rules {
+    list-style: none;
+    margin: 0 0 2.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+}
+.lobby-rules li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--lobby-muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--lobby-border);
+    border-radius: 0.625rem;
+    padding: 0.65rem 0.9rem;
+    transition: background 0.2s, border-color 0.2s;
+}
+.lobby-rules li:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.18);
+    color: var(--lobby-ink);
+}
+.lobby-rule-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* ── CTA button ───────────────────────────────────────────────── */
+.lobby-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--lobby-accent), #7c6bf0);
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px var(--lobby-glow),
+                0 0 0 1px rgba(91,141,238,0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.lobby-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.lobby-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--lobby-glow), 0 0 0 1px rgba(91,141,238,0.4);
+}
+.lobby-cta:hover::before { opacity: 1; }
+.lobby-cta:active { transform: translateY(0); }
+
+.lobby-cta-text { letter-spacing: 0.01em; }
+.lobby-cta-arrow { font-size: 1.1rem; transition: transform 0.2s; }
+.lobby-cta:hover .lobby-cta-arrow { transform: translateX(4px); }
+
+/* ── entrance animations ─────────────────────────────────────── */
+@keyframes lobby-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.lobby-anim-1, .lobby-anim-2, .lobby-anim-3,
+.lobby-anim-4, .lobby-anim-5 {
+    opacity: 0;
+    animation: lobby-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.lobby-anim-1 { animation-delay: 0.05s; }
+.lobby-anim-2 { animation-delay: 0.15s; }
+.lobby-anim-3 { animation-delay: 0.25s; }
+.lobby-anim-4 { animation-delay: 0.35s; }
+.lobby-anim-5 { animation-delay: 0.50s; }
