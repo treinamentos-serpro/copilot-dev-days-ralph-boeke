@@ -1,7 +1,20 @@
-/* Soc Ops — Social Bingo utility stylesheet
-   Derived from the original Blazor app's Tailwind-like helpers.
-   Blazor-specific selectors (#blazor-error-ui, .blazor-error-boundary,
-   .loading-progress) have been stripped out. */
+:root {
+    --ink: #090b12;
+    --ink-deep: #05060a;
+    --panel: #111522;
+    --panel-raised: #181d2c;
+    --tile: #151a28;
+    --tile-pressed: #252d43;
+    --line: #36405a;
+    --muted: #8992a8;
+    --paper: #e6ebf2;
+    --cyan: #55f6e2;
+    --cyan-deep: #16a99f;
+    --magenta: #ff5aa5;
+    --yellow: #ffd166;
+    --yellow-deep: #a86f18;
+    --shadow: rgba(0, 0, 0, 0.45);
+}
 
 html,
 body {
@@ -10,9 +23,96 @@ body {
 }
 
 body {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: "Courier New", Courier, monospace;
+    color: var(--paper);
+    background: var(--ink-deep);
     -webkit-tap-highlight-color: transparent;
 }
+
+button { color: inherit; }
+
+.retro-screen {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--ink);
+    background-image: linear-gradient(rgba(85, 246, 226, 0.035) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(85, 246, 226, 0.035) 1px, transparent 1px),
+                      radial-gradient(circle at 50% 20%, rgba(255, 90, 165, 0.08), transparent 38%);
+    background-size: 32px 32px, 32px 32px, 100% 100%;
+}
+
+.retro-screen::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background: repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255, 255, 255, 0.018) 4px);
+    opacity: 0.55;
+}
+
+.lobby-shell, .game-header, .game-hint, .board-stage { position: relative; z-index: 1; }
+.lobby-shell { width: 100%; animation: boot-in 0.55s ease-out both; }
+.eyebrow, .version-stamp, .hint-prompt, .board-label, .status-lamp, .header-brand span {
+    color: var(--cyan);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.eyebrow { margin: 0 0 0.8rem; }
+.brand-mark {
+    margin: 0;
+    color: var(--paper);
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: clamp(3.6rem, 14vw, 6.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.9;
+    text-shadow: 4px 4px 0 var(--magenta), 8px 8px 0 rgba(255, 90, 165, 0.18);
+    text-transform: uppercase;
+}
+.game-name { margin: 0.85rem 0 2.4rem; color: var(--yellow); font-size: 1rem; letter-spacing: 0.22em; text-transform: uppercase; }
+.blink { animation: blink 1.1s steps(2, start) infinite; }
+.briefing-panel, .board-frame, .victory-panel { border: 1px solid var(--line); background: rgba(17, 21, 34, 0.94); box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2); }
+.briefing-panel { text-align: left; }
+.panel-heading { margin-bottom: 1.3rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--line); }
+.panel-heading h2 { margin: 0; color: var(--paper); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.status-lamp { color: var(--magenta); }
+.briefing-panel ul { margin: 0; padding: 0; color: var(--muted); list-style: none; }
+.briefing-panel li { display: flex; gap: 0.75rem; align-items: baseline; }
+.step-number { color: var(--yellow); font-size: 0.7rem; }
+.start-button { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid var(--cyan); background: var(--cyan); color: var(--ink-deep); box-shadow: 4px 4px 0 var(--cyan-deep); letter-spacing: 0.1em; text-transform: uppercase; }
+.start-button:hover { background: #8affef; transform: translate(-1px, -1px); }
+.button-arrow { font-size: 1.15em; }
+.version-stamp { margin: 1.3rem 0 0; color: var(--muted); font-size: 0.58rem; }
+.game-header { border-bottom: 1px solid var(--line); background: rgba(9, 11, 18, 0.86); }
+.back-button { color: var(--muted); border: 1px solid transparent; }
+.back-button:hover { color: var(--cyan); border-color: var(--cyan-deep); }
+.header-brand { margin: 0; color: var(--paper); font-size: 0.9rem; letter-spacing: 0.16em; }
+.header-brand span { color: var(--magenta); font-size: 0.58rem; }
+.header-signal { color: var(--cyan); font-size: 0.55rem; text-shadow: 0 0 8px var(--cyan); }
+.game-hint { margin: 0; color: var(--muted); }
+.hint-prompt { margin-right: 0.4rem; color: var(--magenta); }
+.bingo-banner { position: relative; z-index: 1; border-top: 1px solid var(--yellow); border-bottom: 1px solid var(--yellow); background: rgba(255, 209, 102, 0.12); color: var(--yellow); letter-spacing: 0.16em; text-transform: uppercase; }
+.board-stage { padding-top: 1.4rem; padding-bottom: 1.4rem; }
+.board-frame { width: min(100%, 34rem); padding: 0.75rem; border-color: var(--cyan-deep); box-shadow: 0 0 0 1px rgba(85, 246, 226, 0.14), 10px 10px 0 rgba(0, 0, 0, 0.24); }
+.board-label { display: flex; justify-content: space-between; margin: 0 0 0.7rem; color: var(--muted); }
+.board-label span:last-child { color: var(--cyan); }
+#gridContainer { gap: 0.3rem; }
+.retro-tile { min-width: 0; overflow: hidden; border-color: var(--line); border-radius: 0; background: var(--tile); color: var(--muted); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025); font-family: "Courier New", Courier, monospace; font-size: clamp(0.56rem, 1.8vw, 0.72rem); }
+.retro-tile:hover { border-color: var(--cyan); color: var(--paper); transform: translateY(-2px); }
+.retro-tile:focus-visible, .start-button:focus-visible, .back-button:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.tile-idle:active { transform: translateY(1px); }
+.tile-selected { border-color: var(--cyan-deep); background: rgba(22, 169, 159, 0.35); color: var(--paper); }
+.tile-winning { border-color: var(--yellow); background: var(--yellow); color: var(--ink-deep); box-shadow: 0 0 14px rgba(255, 209, 102, 0.38); }
+.tile-free { border-color: var(--magenta); background: rgba(255, 90, 165, 0.22); color: var(--paper); }
+.tile-check { color: var(--cyan); }
+.victory-overlay { background: rgba(5, 6, 10, 0.86); }
+.victory-panel { border-color: var(--yellow); box-shadow: 8px 8px 0 var(--yellow-deep), 0 0 36px rgba(255, 209, 102, 0.14); }
+.victory-icon { color: var(--yellow); text-shadow: 0 0 18px rgba(255, 209, 102, 0.7); }
+.victory-title { margin-top: 0.5rem; color: var(--yellow); letter-spacing: 0.1em; }
+.victory-copy { color: var(--muted); }
+
+@keyframes boot-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes blink { 50% { opacity: 0; } }
 
 /* ── sizing ────────────────────────────────────────────────────── */
 .h-full  { height: 100%; }
@@ -177,4 +277,18 @@ button:disabled { cursor: default; }
 
 .animate-\[bounce_0\.5s_ease-out\] {
     animation: bounce 0.5s ease-out;
+}
+
+@media (max-width: 520px) {
+    .retro-screen { min-height: 100dvh; }
+    .board-stage { align-items: flex-start; padding-top: 0.8rem; }
+    .board-frame { padding: 0.45rem; }
+    .board-label { margin-bottom: 0.45rem; font-size: 0.55rem; }
+    #gridContainer { gap: 0.18rem; }
+    .retro-tile { min-height: 48px; padding: 0.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .retro-tile:hover, .start-button:hover { transform: none; }
 }
